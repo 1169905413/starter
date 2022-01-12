@@ -1,0 +1,3 @@
+CREATE DATABASE "lvdt_test";
+CREATE RETENTION POLICY "rp_90d" ON "lvdt_test" DURATION 90d replication 1 default;
+--CREATE CONTINUOUS QUERY "cq2_5m" ON "lvdt_test" BEGIN  SELECT max("temp") AS "max_temp",max("displacement") AS "max_displacement",  INTO "auto_gen"."ds_raw"  FROM "raw" GROUP BY time(5m) END;

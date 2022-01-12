@@ -1,0 +1,4 @@
+CREATE RETENTION POLICY "one_hour" ON "fata_test" DURATION 1h replication 1 default;
+CREATE CONTINUOUS QUERY "cq_5m" ON "fata_test" BEGIN   SELECT max("ai0") AS "max_ai0",min("ai0") AS "min_ai0",  max("ai1") AS "max_ai1",min("ai1") AS "min_ai1",  max("ai2") AS "max_ai2",min("ai2") AS "min_ai2",max("ai3") AS "max_ai3",min("ai3") AS "min_ai3",  max("ai4") AS "max_ai4",min("ai4") AS "min_ai4",  max("ai5") AS "max_ai5",min("ai5") AS "min_ai5"  INTO "autogen"."ds_raw"  FROM "raw"  GROUP BY time(5m) END;
+CREATE CONTINUOUS QUERY "cq2_5m" ON "fata_test" BEGIN   SELECT max("ai0") AS "max_ai0",  max("ai1") AS "max_ai1",  max("ai2") AS "max_ai2",max("ai3") AS "max_ai3",  max("ai4") AS "max_ai4",  max("ai5") AS "max_ai5",max("cycle") AS "max_cycle" INTO "autogen"."checkpoint"  FROM "fpy"  GROUP BY time(5m) END;
+
