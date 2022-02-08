@@ -47,7 +47,7 @@ data class STATION (
   var freq_range = 0.1..25.0
   var amp_range = 0.0..10.0
   var temp_range = 0.0..100.0
-  var amp_current_range = 0.0..1.5
+  var amp_current_range = 0.0..2.0
   var cycle_range = 1L..9999999999L
   var duration_range = 0.0..100.0
   var control_range = 1L..100L
@@ -107,9 +107,11 @@ data class STATION (
       if (autoControl&&start) {
         if (passDuration < minDuration) {
           amp = updateIfValid(amp,amp+controlAdjRate,"amp",amp_current_range)
+          CAN2.motor.amp((amp * 100).toInt(), this)
 //          CAN2.bei_amplitude(this,(amp*amp_coeff).toInt());
         } else if(passDuration > maxDuration){
           amp = updateIfValid(amp,amp-controlAdjRate,"amp",amp_current_range)
+          CAN2.motor.amp((amp * 100).toInt(), this)
 //          CAN2.bei_amplitude(this,(amp*amp_coeff).toInt());
         }
       }
@@ -172,7 +174,6 @@ data class STATION (
 //            CAN2.bei_update(this)
             CAN2.motor.freq((freq * 100).toInt(), this)
             CAN2.motor.amp((amp * 100).toInt(), this)
-
           } else{
 //            CAN2.amplitude(this,0);
           }

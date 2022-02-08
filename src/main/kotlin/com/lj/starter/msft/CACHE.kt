@@ -2,12 +2,13 @@ package com.lj.starter.msft
 
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonArray
+import io.vertx.kotlin.core.json.get
 import java.util.logging.Logger
 
 object CACHE :  AbstractVerticle() {
   val data = JsonArray()
   val maxsize =100
-  val fetchsize = 21
+  val fetchsize = 42
   val time = 1000L
   val logger = Logger.getLogger(this.toString())
 
@@ -32,13 +33,15 @@ object CACHE :  AbstractVerticle() {
       result.add(data.remove(0))
       remains -= 1
     }
-
     return result
     }
 
   fun add(e:JsonArray) {
 //    logger.info(data.size().toString())
-    data.add(e)
+    data.add(e+"raw")
   }
-
+  fun add1(e:JsonArray) {
+//    logger.info(data.size().toString())
+    data.add(e+"raw1")
+  }
 }

@@ -1,6 +1,6 @@
 package com.lj.starter.msft
 
-import com.lj.starter.msft_can_ai.CACHE
+import com.lj.starter.msft.CACHE
 //import com.lj.starter.msft_can_ai.COM
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Promise
@@ -23,7 +23,8 @@ object HTTP : AbstractVerticle(){
     router.route().handler(BodyHandler.create())
 
     router.get("/udp/listen").handler { routingContext ->
-      UDP.listen()
+      UDP.listen("raw")
+      UDP.listen("raw1")
       var response = routingContext.response()
       response.putHeader("content-type", "text/plain")
       response.end("UDP listen")

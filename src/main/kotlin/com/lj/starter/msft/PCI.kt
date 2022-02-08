@@ -4,11 +4,11 @@ package com.lj.starter.msft
 import Automation.BDaq.*
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Promise
+import org.influxdb.annotation.Measurement
 import java.util.logging.Logger
 
-class PCI(val channel:Int, val name:String) : AbstractVerticle() {
+class PCI(val channel:Int, val name:String,val measurement:String) : AbstractVerticle() {
   private val logger: Logger = Logger.getLogger(this.toString())
-
   val clock = 2000.0
 //  val channel = 6
   val section_len = 60
@@ -51,7 +51,7 @@ class PCI(val channel:Int, val name:String) : AbstractVerticle() {
         val errorCode = wfai.GetData(getDataCount, buffer, 0, returnedCount)
         remainingCount -= returnedCount.value
       } while (remainingCount > 0)
-      DEVICE.process(buffer,getdata)
+      DEVICE.process(buffer,getdata,measurement)
     }
     wfai.Prepare()
     wfai.Start()

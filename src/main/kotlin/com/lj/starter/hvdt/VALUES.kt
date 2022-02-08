@@ -7,7 +7,7 @@ import io.vertx.core.json.JsonArray
 
 object AO {
   const val twoPi = 2 * Math.PI
-  val channel =  4
+  val channel =  3
   val section_len = 200
   val step = 200L
   val clock = section_len * 1000/step .toDouble()
@@ -18,7 +18,7 @@ object AO {
 
 object AI{
   val unit = 200
-  val station = 4
+  val station = 3
   val channel_per_station = 2
 
   val section_len = 5000

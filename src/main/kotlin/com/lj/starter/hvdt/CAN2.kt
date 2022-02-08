@@ -163,7 +163,7 @@ object CAN2: AbstractVerticle() {
 
         if(idx == 0){
           STATUS.stations.forEach{
-            it.temp = (Modbus.b2i(temp[it.id * 2] , temp[it.id * 2 + 1]).toDouble() / 10)
+            it.temp = String.format("%.2f",(Modbus.b2i(temp[it.id * 2] , temp[it.id * 2 + 1]).toDouble() / 10)*1.08).toDouble()
           }
 //          STATUS.stations[0].temp = (Modbus.b2i(temp[STATUS.stations[0].id * 2] , temp[STATUS.stations[0].id * 2 + 1]).toDouble() / 10)*STATUS.stations[0].rate0
 //          STATUS.stations[0].temp = String.format("%.2f",STATUS.stations[0].temp).toDouble()
@@ -180,9 +180,6 @@ object CAN2: AbstractVerticle() {
 
           STATUS.stations.forEach{
 //            it.temp = (Modbus.b2i(temp[it.id * 2] , temp[it.id * 2 + 1]).toDouble() / 10)*it.rate
-            if(it.temp>37&&it.start){
-              motor.stop_motor(it)
-            }
             it.ctemp=String.format("%.2f",it.temp/STATUS.stations.size).toDouble()
           }
         }

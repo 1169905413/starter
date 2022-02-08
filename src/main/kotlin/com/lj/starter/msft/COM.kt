@@ -23,7 +23,6 @@ object COM :  AbstractVerticle() {
 
   override fun start(startPromise: Promise<Void>?) {
     logger.info("Deploy COM!")
-
     vertx.setPeriodic(freq) {
       if (list.isNotEmpty()) {
         val element = list.removeAt(0)
@@ -36,14 +35,11 @@ object COM :  AbstractVerticle() {
             c += "\r\n"
           }
           port!!.writeString(c)
-
         } else {
           result[id] = "Port not open"
         }
       }
     }
-
-
     vertx.setPeriodic(update_freq) {
       execute2("cycle", "i r30")
       execute2("motor", "g r0xa6")
@@ -51,7 +47,6 @@ object COM :  AbstractVerticle() {
     }
     super.start(startPromise)
   }
-
   var value = ""
   fun connect(name:String? = null,
               baudrate :Int = SerialPort.BAUDRATE_9600,

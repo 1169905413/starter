@@ -59,8 +59,7 @@ class PCI_AI(val name:String,val id:Int, val measurement:String) : AbstractVerti
     if (diff > AI.round) {
       logger.severe("slower for $diff us, put ahead clock for $diff us")
       start += diff
-    }
-    else if(diff < -AI.round){
+    } else if(diff < -AI.round){
       logger.severe("faster for 1s, discard 1s data")
       return false
     }

@@ -15,6 +15,7 @@ data class STATION(val channel: Int) {
 
   val offset = MutableList<Double>(channel) { _ -> 0.0 }
   val offset2 = MutableList<Double>(channel) { _ -> 0.0 }
+  val offset_ai2 = MutableList<Double>(6) { _ -> 0.0 }
   val compensation = MutableList<Double>(channel) { _ -> 0.0 }
   val compensationBase = MutableList<Double>(channel) { _ -> 0.0 }
   val slope = MutableList<Double>(channel) { _ -> 200.0 }

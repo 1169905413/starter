@@ -15,7 +15,7 @@ object HVDT :AbstractVerticle(){
     val listToDeploy = mutableListOf<AbstractVerticle>(
 
       PCI_AI("ai#1",0,"raw")
-//      ,PCI_AI("ai#2",1,"raw1")
+      ,PCI_AI("ai#2",1,"raw1")
       ,CAN2
 //      ,PCI_AO("ao#1",0)
       ,HTTP

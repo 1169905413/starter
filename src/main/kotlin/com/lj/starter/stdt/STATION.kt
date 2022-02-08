@@ -103,7 +103,7 @@ data class STATION (
   var adjust2 = false
   var saved = false
   var delta_base = 0.0
-  var maxPressLimit = 200.0
+  var maxPressLimit = 375.0
   var avg_n_1 = 0.0
   var ratio = 1.0
 
@@ -153,6 +153,7 @@ data class STATION (
           amp2 = amp
           if(start) {
             STATUS.com.set_param2(freq,amp,amp2)
+
           }
         }
 

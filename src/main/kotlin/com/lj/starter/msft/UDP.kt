@@ -21,14 +21,14 @@ object UDP :  AbstractVerticle()  {
     udp = vertx.createDatagramSocket()
   }
 
-  fun listen (ip:String = "192.168.1.116", port:Int = 2111) {
+  fun listen (measurement:String,ip:String = "192.168.1.116", port:Int = 2111) {
     udp!!.listen(port, ip) { asyncResult ->
       if (asyncResult.succeeded()) {
         logger.info("udp listened")
         udp!!.handler { packet ->
           logger.fine("UDP:${System.currentTimeMillis()}")
           val data = packet.data().bytes
-          DEVICE.process(data, getdata)
+          DEVICE.process(data, getdata,measurement)
         }
       } else {
         logger.severe("Listen failed${asyncResult.cause()}")

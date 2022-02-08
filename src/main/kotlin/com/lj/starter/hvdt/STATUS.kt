@@ -7,7 +7,7 @@ import io.vertx.core.json.JsonObject
 
 object STATUS {
   val stations = mutableListOf<STATION>(
-    STATION(0),STATION(1),STATION(2),STATION(3),STATION(4),STATION(5),STATION(6),STATION(7)
+    STATION(0),STATION(1),STATION(2),STATION(3),STATION(4),STATION(5)
   )
 
   fun status (): JsonObject {

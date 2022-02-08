@@ -2,7 +2,7 @@ package com.lj.starter.msft
 
 import com.influxdb.client.domain.WritePrecision
 import com.influxdb.client.write.Point
-import com.lj.starter.msft_can_ai.CACHE
+import com.lj.starter.msft.CACHE
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Promise
 import io.vertx.core.json.JsonArray
@@ -64,14 +64,14 @@ object DEVICE : AbstractVerticle() {
     return l
   }
 
-  fun <T> process(data: T, f: (T, Int, Int) -> Double) {
+  fun <T> process(data: T, f: (T, Int, Int) -> Double,measurement:String) {
     val base = (System.currentTimeMillis() - 30) * 1000
-    val list = mutableListOf<Point>()
+    val list1 = mutableListOf<Point>()
     val cache = JsonArray()
     for(i in 0 until 60) {
 //      println(i)
 //      continue
-      val point = Point.measurement("raw").time(base + i  * 500 , WritePrecision.US)
+      val point1 = Point.measurement(measurement).time(base + i  * 500 , WritePrecision.US)
       val buffer = mutableListOf<Double>()
       val cachePoint = JsonArray()
 
@@ -81,12 +81,12 @@ object DEVICE : AbstractVerticle() {
         var value = adjust(raw,c)
         buffer.add(raw)
         cachePoint.add(value)
-        point.addField("ai$c", value)
+        point1.addField("ai$c", value)
       }
 
       cache.add(cachePoint)
       pool.add(buffer)
-      list.add(point)
+      list1.add(point1)
 
 
       if(pool.isNotEmpty() && pool.size % 2000 == 0) {
@@ -109,6 +109,7 @@ object DEVICE : AbstractVerticle() {
             val l = pool[id]
             for( c in 0 until channels) {
               stations.offset2[c] += l[c]
+
               if(count){
                 val value = adjust(l[c],c)
                 if(value >= stations.threshold[c] && id - peak[c] > step){
@@ -136,8 +137,12 @@ object DEVICE : AbstractVerticle() {
         pool.clear()
       }
     }
-    CACHE.add(cache)
-    INFLUX.write(list)
+    if(measurement=="raw"){
+      CACHE.add(cache)
+    }else{
+      CACHE.add1(cache)
+    }
+    INFLUX.write(list1)
   }
 
 

@@ -28,10 +28,10 @@ object AI{
   const val buffer_len = section_len * channel
   var vr: ValueRange = ValueRange.V_Neg10To10
 
-  var slope = 100/3
+  var slope = 75
   var offset = 0.0
 
   val getdata:(DoubleArray, Int , Int)->Double = {d, i ,c ->
-    d[i * channel + c]*slope + offset
+   ( d[i * channel + c]-5)*slope + offset
   }
 }
